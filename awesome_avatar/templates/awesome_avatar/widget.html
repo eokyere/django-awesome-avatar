@@ -31,11 +31,13 @@
         </tr>
     </table>
     <script>
-        bind_on_change_input_file('#{{ id }}', {
-            select_area_width: {{ config.select_area_width }},
-            select_area_height: {{ config.select_area_height }},
-            width: {{ config.width }},
-            height: {{ config.height }}
+        $(function() {
+            bind_on_change_input_file('#{{ id }}', {
+                select_area_width: {{ config.select_area_width }},
+                select_area_height: {{ config.select_area_height }},
+                width: {{ config.width }},
+                height: {{ config.height }}
+            });            
         });
     </script>
 </div>

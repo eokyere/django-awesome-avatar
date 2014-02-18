@@ -5,17 +5,20 @@ from django.template.loader import render_to_string
 from awesome_avatar.settings import config
 
 
+DEFAULT_AVATAR_URL = '/static/awesome_avatar/default.png'
+
+
 class AvatarWidget(FileInput):
 
     def value_from_datadict(self, data, files, name):
         value = {}
         value['file'] = super(AvatarWidget, self).value_from_datadict(data, files, name)
 
-        x1 = data.get(name + '-x1', 0)
-        y1 = data.get(name + '-y1', 0)
-        x2 = data.get(name + '-x2', x1)
-        y2 = data.get(name + '-y2', y1)
-        ratio = float(data.get(name + '-ratio', 1))
+        x1 = data.get(name + '-x1') or 0
+        y1 = data.get(name + '-y1') or 0
+        x2 = data.get(name + '-x2') or x1
+        y2 = data.get(name + '-y2') or y1
+        ratio = float(data.get(name + '-ratio') or 1)
 
         box_raw = [x1, y1, x2, y2]
         box = []
@@ -42,7 +45,10 @@ class AvatarWidget(FileInput):
         context['name'] = name
         context['config'] = config
 
-        context['avatar_url'] = value.url if value else '/static/awesome_avatar/default.png'
+
+        avatar_url = value.get('url', '') if value else None
+
+        context['avatar_url'] = avatar_url or DEFAULT_AVATAR_URL 
         context['id'] = attrs.get('id', 'id_' + name)
         # todo fix HACK
         context['STATIC_URL'] = settings.STATIC_URL
