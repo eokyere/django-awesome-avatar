@@ -11,11 +11,11 @@ class AvatarWidget(FileInput):
         value = {}
         value['file'] = super(AvatarWidget, self).value_from_datadict(data, files, name)
 
-        x1 = data.get(name + '-x1', 0)
-        y1 = data.get(name + '-y1', 0)
-        x2 = data.get(name + '-x2', x1)
-        y2 = data.get(name + '-y2', y1)
-        ratio = float(data.get(name + '-ratio', 1))
+        x1 = data.get(name + '-x1') or 0
+        y1 = data.get(name + '-y1') or 0
+        x2 = data.get(name + '-x2') or x1
+        y2 = data.get(name + '-y2') or y2
+        ratio = float(data.get(name + '-ratio') or 1)
 
         box_raw = [x1, y1, x2, y2]
         box = []
